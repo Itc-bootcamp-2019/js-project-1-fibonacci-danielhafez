@@ -1,0 +1,38 @@
+* {
+  font-family: open sans;
+  box-sizing: border-box;
+  border-radius: 4px;
+}
+
+.title {
+  font-size: 72px;
+  line-height: 79px;
+  display: flex;
+  align-items: flex-end;
+  color: #373a3c;
+  margin-top: 100px;
+  margin-bottom: 50px;
+}
+.content {
+  display: block;
+  font-size: 24px;
+  color: #373a3c;
+}
+#result {
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 24px;
+  text-decoration-line: underline;
+}
+
+.get-number {
+  width: 86px;
+  height: 38px;
+  background: #ffffff;
+  border: 1px solid #cccccc;
+}
+
+.btn {
+  background: #0275d8;
+  border: 1px solid #0275d8;
+}
