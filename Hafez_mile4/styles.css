@@ -1,0 +1,28 @@
+* {
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  box-sizing: border-box;
+  border-radius: 4px;
+}
+
+h1 {
+  font-size: 40px;
+  text-align: center;
+}
+
+#x,
+#y {
+  color: lightcoral;
+}
+
+.get-number {
+  width: 86px;
+  height: 38px;
+  background: #ffffff;
+  border: 1px solid #cccccc;
+}
+
+.btn {
+  background: #0275d8;
+  border: 1px solid #0275d8;
+}
