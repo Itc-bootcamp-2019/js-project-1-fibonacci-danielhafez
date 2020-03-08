@@ -18,13 +18,13 @@
     <link rel="stylesheet" href="css/styles.css" />
   </head>
   <body>
-    <div class="container row">
+    <div class=" row">
       <div class="col-2"></div>
 
       <div class="col-md-10">
         <h1 class="title">Fibonacci Calculator</h1>
 
-        <h5 class="content">
+        <div class="content">
           The Fibonacci of
           <input
             type="text"
@@ -40,8 +40,14 @@
             is
           </button>
 
-          <span id="result-space"></span>
-        </h5>
+          <div id="result-space"></div>
+          <div id="loader"></div>
+          <div class="alert alert-danger" id="alertMessage">
+            Can't be larger than 50.
+          </div>
+        </div>
+        <h1 class="result-title">Results</h1>
+        <div id="results-history"></div>
       </div>
     </div>
 

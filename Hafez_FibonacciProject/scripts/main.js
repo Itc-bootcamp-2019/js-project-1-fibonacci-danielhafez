@@ -1,29 +1,98 @@
+const button = document.getElementById("calculate-btn");
+const input = document.getElementById("x_value");
+const loader = document.getElementById("loader");
+loader.classList.add("hide");
+
 function calculateFibonacci() {
   let x = document.getElementById("x_value").value;
+  console.log(x);
 
-  if (isNaN(x)) {
-    alert("Please insert a number");
-    return console.error("The input was not a number");
-  }
-  if (x < 0) {
-    alert(
-      "The regular Fibonacci Sequence includes only positive number, the number inserted was negative"
-    );
-    return console.error(
-      "The regular Fibonacci Sequence includes only positive number, the number inserted was negative."
-    );
-  }
-
-  if (x <= 1) {
-    return x;
+  if (checkInput(x) !== "ok") {
+    return console.log("the input is not a valid number");
   } else {
-    fetch(`http://localhost:5050/fibonacci/${x}`)
-      .then(res => res.json())
+    invisible(`result-space`);
+    visible(`loader`);
+    invisible(`alertMessage`);
+
+    const server = `http://localhost:5050/fibonacci/${x}`;
+
+    fetch(server)
+      .then(function(response) {
+        if (response.ok) {
+          return response.json();
+        } else {
+          return response.text();
+        }
+      })
       .then(function fetchResult(data) {
-        document.getElementById("result-space").innerText = data.result;
+        invisible(`loader`);
+        visible(`result-space`);
+        const resultSpace = document.getElementById("result-space");
+
+        if (typeof data === "object") {
+          resultSpace.innerText = data.result;
+          resultSpace.classList.remove("server-error");
+          console.log(data);
+        } else {
+          resultSpace.innerText = "Server Error: " + data;
+          resultSpace.classList.toggle("server-error");
+        }
       });
+
+    //  - Catch function below, not sure why is not working
+
+    // .catch(function(err) {
+    //   invisible(`loader`);
+    //   visible(`result-space`);
+    //   document.getElementById("result-space").innerText =
+    //     "Server Error:" + err;
+    //
+    // })
   }
 }
 
-let button = document.getElementById("calculate-btn");
+function checkInput(num) {
+  const alertMessage = document.getElementById("alertMessage");
+  if (isNaN(num)) {
+    alertMessage.innerText = "Please insert a number";
+    displayBlock(`alertMessage`);
+    return console.log("The input was not a number");
+  }
+  if (num < 0) {
+    alertMessage.innerText = "Please insert a positive number";
+    displayBlock(`alertMessage`);
+    return console.log("The input was a negative number");
+  }
+  if (num > 50) {
+    alertMessage.innerText = "Can't be larger than 50";
+    displayBlock(`alertMessage`);
+    return console.log("The maximum value is 50");
+  } else {
+    return "ok";
+  }
+}
+function restart() {
+  x = "";
+  invisible(`alertMessage`);
+  invisible(`loader`);
+}
+function visible(element) {
+  let something = document.getElementById(`${element}`);
+  something.classList.remove("hide");
+  something.classList.add("unhide");
+}
+
+function displayBlock(element) {
+  let something = document.getElementById(`${element}`);
+  something.classList.remove("hide");
+  something.classList.remove("unhide");
+  something.classList.add("blockit");
+}
+
+function invisible(element) {
+  let something = document.getElementById(`${element}`);
+  something.classList.remove("unhide");
+  something.classList.add("hide");
+}
+
 button.addEventListener("click", calculateFibonacci);

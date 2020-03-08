@@ -18,11 +18,12 @@
   font-size: 24px;
   color: #373a3c;
 }
-#result {
+#result-space {
   font-weight: bold;
   font-size: 24px;
   line-height: 24px;
   text-decoration-line: underline;
+  display: inline-block;
 }
 
 .get-number {
@@ -35,4 +36,76 @@
 .btn {
   background: #0275d8;
   border: 1px solid #0275d8;
+}
+
+#loader {
+  border: 3px solid black;
+  border-radius: 50%;
+  border-top: 3px solid white;
+  width: 40px;
+  height: 40px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+  position: relative;
+  top: 10px;
+  left: 5px;
+}
+
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.unhide {
+  display: inline-block !important;
+}
+
+.blockit {
+  display: block !important;
+}
+
+.hide {
+  display: none !important;
+}
+
+.content .alert {
+  font-size: 16px;
+  width: max-content;
+  display: none;
+}
+
+.organizer {
+  display: inline-block;
+}
+
+.wrong-input {
+  outline-color: red;
+  outline-width: 3px;
+  outline-offset: -2px;
+}
+
+.server-error {
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-size: 16px !important;
+  line-height: 24px !important;
+  text-decoration-line: none !important;
+  color: #d9534f;
+}
+
+.result-title {
+  margin-top: 40px;
 }
