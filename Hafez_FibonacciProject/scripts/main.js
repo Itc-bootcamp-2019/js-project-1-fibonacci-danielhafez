@@ -41,17 +41,22 @@ function calculateFibonacci() {
           resultSpace.classList.toggle("server-error");
         }
       });
+    const checkBox = document.getElementById("checkbox");
 
-    visible(`loader2`);
-    setTimeout(() => {
-      fetch("http://localhost:5050/getFibonacciResults")
-        .then(res => res.json())
-        .then(function fetchResult(data) {
-          let history = cleanArray(data.results);
-          createList(history);
-          invisible(`loader2`);
-        });
-    }, 1200);
+    if (checkBox.checked == true) {
+      visible(`loader2`);
+      setTimeout(() => {
+        fetch("http://localhost:5050/getFibonacciResults")
+          .then(res => res.json())
+          .then(function fetchResult(data) {
+            let history = cleanArray(data.results);
+            createList(history);
+            invisible(`loader2`);
+          });
+      }, 800);
+    } else {
+      return;
+    }
   }
 }
 
@@ -86,16 +91,22 @@ function checkInput(num) {
   if (isNaN(num)) {
     alertMessage.innerText = "Please insert a number";
     displayBlock(`alertMessage`);
+    invisible(`checkbox`);
+    invisible(`save`);
     return console.log("The input was not a number");
   }
   if (num < 0) {
     alertMessage.innerText = "Please insert a positive number";
     displayBlock(`alertMessage`);
+    invisible(`checkbox`);
+    invisible(`save`);
     return console.log("The input was a negative number");
   }
   if (num > 50) {
     alertMessage.innerText = "Can't be larger than 50";
     displayBlock(`alertMessage`);
+    invisible(`checkbox`);
+    invisible(`save`);
     return console.log("The maximum value is 50");
   } else {
     return "ok";

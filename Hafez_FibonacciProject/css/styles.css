@@ -130,3 +130,14 @@
 .result-title h1 {
   margin-right: 15px;
 }
+
+.check-section {
+  display: flex;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+#checkbox {
+  margin-top: 5px;
+  margin-right: 5px;
+}
