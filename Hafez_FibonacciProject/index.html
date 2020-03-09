@@ -19,9 +19,9 @@
   </head>
   <body>
     <div class=" row">
-      <div class="col-2"></div>
+      <div class="col-1"></div>
 
-      <div class="col-md-10">
+      <div class="col-md-11">
         <h1 class="title">Fibonacci Calculator</h1>
 
         <div class="content">
@@ -41,13 +41,18 @@
           </button>
 
           <div id="result-space"></div>
-          <div id="loader"></div>
+          <div id="loader" class="loader"></div>
           <div class="alert alert-danger" id="alertMessage">
             Can't be larger than 50.
           </div>
         </div>
-        <h1 class="result-title">Results</h1>
-        <div id="results-history"></div>
+        <div class="result-title">
+          <h1>Results</h1>
+          <div id="loader2" class="loader"></div>
+        </div>
+        <div>
+          <ul id="results-history"></ul>
+        </div>
       </div>
     </div>
 

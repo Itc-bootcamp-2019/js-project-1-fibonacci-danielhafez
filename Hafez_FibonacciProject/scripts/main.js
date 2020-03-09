@@ -1,7 +1,10 @@
 const button = document.getElementById("calculate-btn");
 const input = document.getElementById("x_value");
 const loader = document.getElementById("loader");
+const resultHistory = document.getElementById("results-history");
 loader.classList.add("hide");
+const loader2 = document.getElementById("loader2");
+loader2.classList.add("hide");
 
 function calculateFibonacci() {
   let x = document.getElementById("x_value").value;
@@ -39,15 +42,42 @@ function calculateFibonacci() {
         }
       });
 
-    //  - Catch function below, not sure why is not working
+    visible(`loader2`);
+    setTimeout(() => {
+      fetch("http://localhost:5050/getFibonacciResults")
+        .then(res => res.json())
+        .then(function fetchResult(data) {
+          let history = cleanArray(data.results);
+          createList(history);
+          invisible(`loader2`);
+        });
+    }, 1200);
+  }
+}
 
-    // .catch(function(err) {
-    //   invisible(`loader`);
-    //   visible(`result-space`);
-    //   document.getElementById("result-space").innerText =
-    //     "Server Error:" + err;
-    //
-    // })
+function cleanArray(array) {
+  let storage = [];
+  for (let i = 0; i < array.length; i++) {
+    let date = new Date(array[i].createdDate);
+    const search = [
+      "The Fibonacci Of <strong>" +
+        array[i].number +
+        "</strong> is <strong>" +
+        array[i].result +
+        "</strong>. Calculated at: " +
+        date +
+        "\n"
+    ];
+    storage.push(search);
+  }
+  return storage;
+}
+
+function createList(array) {
+  for (i = 0; i < array.length; i++) {
+    const listItem = document.createElement("li");
+    listItem.innerHTML = array[i] + "<hr>";
+    resultHistory.appendChild(listItem);
   }
 }
 
