@@ -78,12 +78,18 @@ function cleanArray(array) {
   let storage = [];
   for (let i = 0; i < array.length; i++) {
     let date = new Date(array[i].createdDate);
+    const numberFib = document.createElement("p");
+    numberFib.classList.add("bold");
+    numberFib = array[i].number;
+    const resultFib = document.createElement("p");
+    resultFib.classList.add("bold");
+    numberFib = array[i].result;
     const search = [
-      "The Fibonacci Of <b>" +
-        array[i].number +
-        "</b> is <b> " +
+      "The Fibonacci Of " +
+        number +
+        " is " +
         array[i].result +
-        "</b>. Calculated at: " +
+        ". Calculated at: " +
         date +
         "\n"
     ];
@@ -93,10 +99,11 @@ function cleanArray(array) {
 }
 
 function createList(array) {
+  let horizontalLine = document.createElement("hr");
   resultHistory.innerHTML = "";
   for (i = 0; i < array.length; i++) {
     const listItem = document.createElement("li");
-    listItem.innerHTML = array[i] + "<hr>";
+    listItem.innerHTML = array[i] + horizontalLine;
     resultHistory.appendChild(listItem);
   }
 }
