@@ -24,10 +24,11 @@ function calculateFibonacci() {
     const checkBox = document.getElementById("checkbox");
 
     if (checkBox.checked == false) {
+      //calculate fibonacci without connecting to the server
       hideUnhide(`result-space`);
       hideUnhide(`loader`);
+      resultSpace.classList.remove("server-error");
       resultSpace.innerText = fibonacciNoServer(x);
-      //calculate fibonacci without connecting to the server
     } else {
       const server = `http://localhost:5050/fibonacci/${x}`;
       fetch(server)
@@ -63,10 +64,8 @@ function showHistory(key, sort) {
       .then(res => res.json())
       .then(function fetchResult(data) {
         let history = sortByKey(data.results, key);
-        history = cleanArray(data.results);
         if (sort === "desc") {
           history = history.reverse();
-        } else {
         }
         createList(history);
         hideUnhide(`loader2`);
@@ -74,29 +73,32 @@ function showHistory(key, sort) {
   }, 800);
 }
 
-function cleanArray(array) {
-  let storage = [];
-  for (let i = 0; i < array.length; i++) {
-    let date = new Date(array[i].createdDate);
-    const search = [
-      "The Fibonacci Of <b>" +
-        array[i].number +
-        "</b> is <b> " +
-        array[i].result +
-        "</b>. Calculated at: " +
-        date +
-        "\n"
-    ];
-    storage.push(search);
-  }
-  return storage;
-}
-
 function createList(array) {
   resultHistory.innerHTML = "";
   for (i = 0; i < array.length; i++) {
-    const listItem = document.createElement("li");
-    listItem.innerHTML = array[i] + "<hr>";
+    const horizontalLine = document.createElement("hr");
+    const listItem = document.createElement("div");
+    listItem.append(horizontalLine);
+    const singleResult = document.createElement("span");
+    singleResult.innerHTML = "Fibonaci of ";
+
+    let numberFib = document.createElement("p");
+    numberFib.classList.add("bold");
+    numberFib.innerHTML = array[i].number;
+    singleResult.append(numberFib);
+
+    singleResult.innerHTML += " is ";
+
+    let resultFib = document.createElement("p");
+    resultFib.classList.add("bold");
+    resultFib.innerHTML = array[i].result;
+    singleResult.append(resultFib);
+
+    singleResult.innerHTML +=
+      ". Calculated at: " + new Date(array[i].createdDate);
+
+    singleResult.appendChild(horizontalLine);
+    listItem.append(singleResult);
     resultHistory.appendChild(listItem);
   }
 }
@@ -161,8 +163,8 @@ function invisible(element) {
 
 function sortByKey(array, key) {
   return array.sort(function(a, b) {
-    var x = a[key];
-    var y = b[key];
+    let x = a[key];
+    let y = b[key];
     return x < y ? -1 : x > y ? 1 : 0;
   });
 }
